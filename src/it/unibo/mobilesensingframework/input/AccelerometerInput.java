@@ -1,5 +1,6 @@
 package it.unibo.mobilesensingframework.input;
 
+import it.unibo.mobilesensingframework.mux.Mux;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -64,7 +65,7 @@ public class AccelerometerInput implements IInput, SensorEventListener {
 			_sensor = _sensorManager.getDefaultSensor(SENSOR_TYPE);
 		}
 
-		_sensorManager.registerListener(this, _sensor, _sensorRate);
+		_sensorManager.registerListener(this, _sensor, _sensorRate, new Mux());
 		_isStarted = true;
 		if (DEBUG)
 			Log.i(TAG, "Start()");
@@ -112,7 +113,7 @@ public class AccelerometerInput implements IInput, SensorEventListener {
 	public void onSensorChanged(SensorEvent event) {
 		// TODO Auto-generated method stub
 
-		Toast.makeText(_context, "Value: "+event.values[0], Toast.LENGTH_SHORT).show();
+		//Toast.makeText(_context, "Value: "+event.values[0], Toast.LENGTH_SHORT).show();
 		
 	}
 

@@ -49,10 +49,10 @@ public class InputManager extends Service {
 					//recupero istanza del sensore e se non è null verifico stato del sensore. Se non è già avviato start.
 					IInput inputsensor = _inputFactory.getInstance(intent.getIntExtra(INTENT_SENSOR_TYPE, -1), intent.getBundleExtra(INTENT_SENSOR_PARAM));
 					if(inputsensor!=null){
-						if(!inputsensor.isStarted())
-						inputsensor.start();
-						
-						if(DEBUG)Log.i(TAG, "Start a sensor. Type: "+intent.getIntExtra(INTENT_SENSOR_TYPE, -1));
+						if(!inputsensor.isStarted()){
+							inputsensor.start();
+							if(DEBUG)Log.i(TAG, "Start a sensor. Type: "+intent.getIntExtra(INTENT_SENSOR_TYPE, -1));
+						}
 					}
 				}
 			}
@@ -65,10 +65,10 @@ public class InputManager extends Service {
 					//recupero istanza del sensore e se non è null verifico stato del sensore. Se è avviato stop.
 					IInput inputsensor = _inputFactory.getInstance(intent.getIntExtra(INTENT_SENSOR_TYPE, -1), intent.getBundleExtra(INTENT_SENSOR_PARAM));
 					if(inputsensor!=null){
-						if(inputsensor.isStarted())
-						inputsensor.stop();
-						if(DEBUG)Log.i(TAG, "Stop a sensor. Type: "+intent.getIntExtra(INTENT_SENSOR_TYPE, -1));
-
+						if(inputsensor.isStarted()){
+							inputsensor.stop();
+							if(DEBUG)Log.i(TAG, "Stop a sensor. Type: "+intent.getIntExtra(INTENT_SENSOR_TYPE, -1));
+						}
 					}
 				}
 			}	

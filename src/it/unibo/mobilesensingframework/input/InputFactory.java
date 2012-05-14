@@ -22,7 +22,6 @@ public class InputFactory implements IInputFactory{
 	/** The _context. */
 	private Context _context;
 	
-	
 
 	/**
 	 * Instantiates a new input factory.
