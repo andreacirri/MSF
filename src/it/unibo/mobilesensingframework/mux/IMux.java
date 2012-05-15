@@ -3,7 +3,9 @@
  */
 package it.unibo.mobilesensingframework.mux;
 
-import android.os.Handler;
+import com.lmax.disruptor.EventHandler;
+
+import android.hardware.SensorEvent;
 
 /**
  * @author "Andrea Cirri"
@@ -11,6 +13,7 @@ import android.os.Handler;
  */
 public interface IMux {
 
-	Handler getHandler();
+	void sendEvent(SensorEvent event);
+	void registryHandler(EventHandler<ValueEvent> eventHandler);
 	
 }

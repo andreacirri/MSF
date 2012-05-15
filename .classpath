@@ -2,12 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="lib" path="C:/Users/acirri/Desktop/Library/commons-pool-1.6-bin/commons-pool-1.6/commons-pool-1.6.jar" sourcepath="C:/Users/acirri/Desktop/Library/commons-pool-1.6-bin/commons-pool-1.6/commons-pool-1.6-sources.jar">
+	<classpathentry exported="true" kind="lib" path="C:/Users/acirri/Desktop/Library/Disruptor/disruptor-2.8.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/acirri/Desktop/Library/commons-pool-1.6-bin/commons-pool-1.6/commons-pool-1.6-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/acirri/Desktop/Library/Disruptor/disruptor-2.8-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

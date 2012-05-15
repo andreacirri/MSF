@@ -1,6 +1,7 @@
 package it.unibo.mobilesensingframework.input;
 
 import it.unibo.mobilesensingframework.mux.Mux;
+import it.unibo.mobilesensingframework.naming.NamingService;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -38,6 +39,8 @@ public class AccelerometerInput implements IInput, SensorEventListener {
 	
 	/** The _is started. */
 	private boolean _isStarted = false;
+	
+	private NamingService _namingService=null;
 
 	
 	/**
@@ -112,8 +115,8 @@ public class AccelerometerInput implements IInput, SensorEventListener {
 	 */
 	public void onSensorChanged(SensorEvent event) {
 		// TODO Auto-generated method stub
-
-		
+		if(_namingService==null)_namingService=(NamingService)_context.getApplicationContext();
+		_namingService.get_imux().sendEvent(event);
 		//Toast.makeText(_context, "Value: "+event.values[0], Toast.LENGTH_SHORT).show();
 		
 	}

@@ -47,7 +47,7 @@ public class InputFactory implements IInputFactory{
 			
 			switch(type){
 			case IInputFactory.TYPE_ACCELEROMETER : 
-				_inputs.put(IInputFactory.TYPE_ACCELEROMETER, new AccelerometerInput(_context, android.hardware.SensorManager.SENSOR_DELAY_NORMAL));
+				_inputs.put(IInputFactory.TYPE_ACCELEROMETER, new AccelerometerInput(_context, android.hardware.SensorManager.SENSOR_DELAY_FASTEST));
 				break;	
 			}
 						
