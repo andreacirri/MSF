@@ -3,11 +3,9 @@
  */
 package it.unibo.mobilesensingframework.mux;
 
-import it.unibo.mobilesensingframework.input.AccelerometerInput;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * @author "Andrea Cirri"
@@ -26,6 +24,7 @@ public class Mux extends Handler implements IMux{
 
 		if(DEBUG) Log.i(TAG, "Ricevuto messaggio");
 		//super.handleMessage(msg);
+		
 	}
 
 	public Mux(){

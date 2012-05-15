@@ -65,7 +65,7 @@ public class AccelerometerInput implements IInput, SensorEventListener {
 			_sensor = _sensorManager.getDefaultSensor(SENSOR_TYPE);
 		}
 
-		_sensorManager.registerListener(this, _sensor, _sensorRate, new Mux());
+		_sensorManager.registerListener(this, _sensor, _sensorRate);
 		_isStarted = true;
 		if (DEBUG)
 			Log.i(TAG, "Start()");
@@ -113,6 +113,7 @@ public class AccelerometerInput implements IInput, SensorEventListener {
 	public void onSensorChanged(SensorEvent event) {
 		// TODO Auto-generated method stub
 
+		
 		//Toast.makeText(_context, "Value: "+event.values[0], Toast.LENGTH_SHORT).show();
 		
 	}

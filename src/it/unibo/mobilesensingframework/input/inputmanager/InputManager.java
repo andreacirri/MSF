@@ -5,6 +5,7 @@ import it.unibo.mobilesensingframework.input.InputFactory;
 import it.unibo.mobilesensingframework.input.IInput;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -61,7 +62,7 @@ public class InputManager extends Service {
 			if(intent.getAction()==INTENT_STOP_ACTION){
 				//verifico che l'intent contenga un tipo di sensore valido
 				if(intent.getIntExtra(INTENT_SENSOR_TYPE, -1)!=-1){
-				
+					
 					//recupero istanza del sensore e se non è null verifico stato del sensore. Se è avviato stop.
 					IInput inputsensor = _inputFactory.getInstance(intent.getIntExtra(INTENT_SENSOR_TYPE, -1), intent.getBundleExtra(INTENT_SENSOR_PARAM));
 					if(inputsensor!=null){
