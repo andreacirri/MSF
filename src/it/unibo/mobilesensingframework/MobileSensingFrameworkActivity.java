@@ -3,6 +3,7 @@ package it.unibo.mobilesensingframework;
 import it.unibo.mobilesensingframework.input.IInputFactory;
 import android.app.Activity;
 import android.content.Intent;
+import android.hardware.Sensor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -49,7 +50,9 @@ public class MobileSensingFrameworkActivity extends Activity {
 				Intent i=new Intent();
 				i.setAction(START_INPUT);
 				i.addCategory(CATEGORY);
-				i.putExtra(INTENT_SENSOR_TYPE, IInputFactory.TYPE_ACCELEROMETER);
+				i.putExtra(INTENT_SENSOR_TYPE, Sensor.TYPE_MAGNETIC_FIELD);
+				startService(i);
+				i.putExtra(INTENT_SENSOR_TYPE, Sensor.TYPE_ACCELEROMETER);
 				startService(i);
 			}
 		});
@@ -63,7 +66,10 @@ public class MobileSensingFrameworkActivity extends Activity {
 				Intent i=new Intent();
 				i.setAction(STOP_INPUT);
 				i.addCategory(CATEGORY);
-				i.putExtra(INTENT_SENSOR_TYPE, IInputFactory.TYPE_ACCELEROMETER);
+				i.putExtra(INTENT_SENSOR_TYPE, Sensor.TYPE_MAGNETIC_FIELD);
+				startService(i);
+				
+				i.putExtra(INTENT_SENSOR_TYPE, Sensor.TYPE_ACCELEROMETER);
 				startService(i);
 			}
 		});

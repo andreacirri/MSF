@@ -6,6 +6,7 @@ package it.unibo.mobilesensingframework.input;
 import java.util.HashMap;
 
 import android.content.Context;
+import android.hardware.Sensor;
 import android.os.Bundle;
 
 // TODO: Auto-generated Javadoc
@@ -46,10 +47,15 @@ public class InputFactory implements IInputFactory{
 		if(_inputs.get(type)==null) {
 			
 			switch(type){
-			case IInputFactory.TYPE_ACCELEROMETER : 
-				_inputs.put(IInputFactory.TYPE_ACCELEROMETER, new AccelerometerInput(_context, android.hardware.SensorManager.SENSOR_DELAY_FASTEST));
+			case Sensor.TYPE_ACCELEROMETER : 
+				_inputs.put(Sensor.TYPE_ACCELEROMETER, new AccelerometerInput(_context, android.hardware.SensorManager.SENSOR_DELAY_FASTEST));
 				break;	
+				
+			case Sensor.TYPE_MAGNETIC_FIELD : 
+				_inputs.put(Sensor.TYPE_MAGNETIC_FIELD, new MagneticFieldInput(_context, android.hardware.SensorManager.SENSOR_DELAY_FASTEST));
+				break;
 			}
+			
 						
 		}
 			

@@ -8,9 +8,6 @@ import android.os.Bundle;
  */
 public interface IInputFactory {
 
-	/** The Constant TYPE_ACCELEROMETER. */
-	public final static int TYPE_ACCELEROMETER=0;
-
 	/**
 	 * Gets the single instance of IInputFactory.
 	 *

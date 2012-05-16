@@ -86,6 +86,7 @@ public class DisruptorMux implements IMux {
 		long sequence = _ringBuffer.next();
 		BundleEvent _event = _ringBuffer.get(sequence);
 		
+		_event.getBundle().clear();
 		_event.getBundle().putInt(SensorEventToBundle.ACCURACY_INT, event.accuracy);
 		_event.getBundle().putLong(SensorEventToBundle.TIMESTAMP_LONG, event.timestamp);
 		_event.getBundle().putFloatArray(SensorEventToBundle.VALUES_FLOAT_ARRAY, event.values);
