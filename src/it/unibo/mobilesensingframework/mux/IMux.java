@@ -21,7 +21,7 @@ public interface IMux {
 	 * @param event
 	 *            the event
 	 */
-	void publicEvent(SensorEvent event);
+	void publicSensorEvent(SensorEvent event);
 	
 	/**
 	 * Registry handler.
@@ -29,6 +29,6 @@ public interface IMux {
 	 * @param eventHandler
 	 *            the event handler
 	 */
-	void registryHandler(EventHandler<ValueEvent> eventHandler);
+	void registryHandler(EventHandler<BundleEvent> eventHandler);
 	
 }

@@ -1,6 +1,5 @@
 package it.unibo.mobilesensingframework.input;
 
-import it.unibo.mobilesensingframework.mux.Mux;
 import it.unibo.mobilesensingframework.naming.NamingService;
 import android.content.Context;
 import android.hardware.Sensor;
@@ -8,7 +7,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
-import android.widget.Toast;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -63,7 +61,7 @@ public class AccelerometerInput implements IInput, SensorEventListener {
 
 		if (_sensorManager == null) {
 			_sensorManager = (SensorManager) _context
-					.getSystemService(_context.SENSOR_SERVICE);
+					.getSystemService(Context.SENSOR_SERVICE);
 		}
 		if (_sensor == null) {
 			_sensor = _sensorManager.getDefaultSensor(SENSOR_TYPE);
@@ -115,10 +113,8 @@ public class AccelerometerInput implements IInput, SensorEventListener {
 	 * @see android.hardware.SensorEventListener#onSensorChanged(android.hardware.SensorEvent)
 	 */
 	public void onSensorChanged(SensorEvent event) {
-		// TODO Auto-generated method stub
 		if(_namingService==null)_namingService=(NamingService)_context.getApplicationContext();
-		_namingService.get_imux().publicEvent(event);
-		//Toast.makeText(_context, "Value: "+event.values[0], Toast.LENGTH_SHORT).show();
+		_namingService.get_imux().publicSensorEvent(event);
 		
 	}
 
@@ -140,6 +136,8 @@ public class AccelerometerInput implements IInput, SensorEventListener {
 	 */
 	public void set_sensorRate(int sensorRate) {
 		this._sensorRate = sensorRate;
+		_sensorManager.unregisterListener(this, _sensor);
+		_sensorManager.registerListener(this, _sensor, _sensorRate);
 	}
 
 }

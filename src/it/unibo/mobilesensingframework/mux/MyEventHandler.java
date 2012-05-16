@@ -22,7 +22,7 @@ public class MyEventHandler implements EventHandler<ValueEvent>{
 	public void onEvent(ValueEvent event, long sequence, boolean endOfBatch)
 			throws Exception {
 		// TODO Auto-generated method stub
-		if(DEBUG)Log.i(TAG, "Ricevuto messaggio del sensore: "+ event.getValue().sensor + " X: "+event.getValue().values[0]+ " Y: "+event.getValue().values[1]+ " Z: "+event.getValue().values[2]);
+		//if(DEBUG)Log.i(TAG, "Ricevuto messaggio del sensore: "+ event.getValue().sensor + " X: "+event.getValue().values[0]+ " Y: "+event.getValue().values[1]+ " Z: "+event.getValue().values[2]);
 	}
 
 }
