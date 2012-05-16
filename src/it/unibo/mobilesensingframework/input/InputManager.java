@@ -1,26 +1,41 @@
-package it.unibo.mobilesensingframework.input.inputmanager;
+package it.unibo.mobilesensingframework.input;
 
-import it.unibo.mobilesensingframework.input.IInputFactory;
-import it.unibo.mobilesensingframework.input.InputFactory;
-import it.unibo.mobilesensingframework.input.IInput;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InputManager.
+ */
 public class InputManager extends Service {
 
-	private final static boolean DEBUG = true;
+	/** The Constant DEBUG. */
+	private final static boolean DEBUG = true && it.unibo.mobilesensingframework.debug.Debug.DEBUG_SYSTEM;
+	
+	/** The Constant TAG. */
 	private final static String TAG = InputManager.class.getCanonicalName();
 
+	/** The Constant INTENT_START_ACTION. */
 	private final static String INTENT_START_ACTION = "it.unibo.mobilesensingframework.inputmanager.START_INPUT";
+	
+	/** The Constant INTENT_STOP_ACTION. */
 	private final static String INTENT_STOP_ACTION = "it.unibo.mobilesensingframework.inputmanager.STOP_INPUT";
+	
+	/** The Constant INTENT_SENSOR_TYPE. */
 	private final static String INTENT_SENSOR_TYPE="SensorType";
+	
+	/** The Constant INTENT_SENSOR_PARAM. */
 	private final static String INTENT_SENSOR_PARAM="SensorParameters";
 
+	/** The _input factory. */
 	private IInputFactory _inputFactory = null;
 
+	/* (non-Javadoc)
+	 * @see android.app.Service#onCreate()
+	 */
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
@@ -28,12 +43,18 @@ public class InputManager extends Service {
 		_inputFactory = new InputFactory(getApplicationContext());
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Service#onDestroy()
+	 */
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Service#onStartCommand(android.content.Intent, int, int)
+	 */
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		
@@ -77,6 +98,9 @@ public class InputManager extends Service {
 		return super.onStartCommand(intent, flags, startId);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Service#onBind(android.content.Intent)
+	 */
 	@Override
 	public IBinder onBind(Intent arg0) {
 		// TODO Auto-generated method stub

@@ -17,7 +17,7 @@ import android.widget.Toast;
 public class AccelerometerInput implements IInput, SensorEventListener {
 
 	/** The Constant DEBUG. */
-	private final static boolean DEBUG = true;
+	private final static boolean DEBUG = true && it.unibo.mobilesensingframework.debug.Debug.DEBUG_SYSTEM;
 	
 	/** The Constant TAG. */
 	private final static String TAG = AccelerometerInput.class.getCanonicalName();
@@ -40,6 +40,7 @@ public class AccelerometerInput implements IInput, SensorEventListener {
 	/** The _is started. */
 	private boolean _isStarted = false;
 	
+	/** The _naming service. */
 	private NamingService _namingService=null;
 
 	
@@ -116,14 +117,14 @@ public class AccelerometerInput implements IInput, SensorEventListener {
 	public void onSensorChanged(SensorEvent event) {
 		// TODO Auto-generated method stub
 		if(_namingService==null)_namingService=(NamingService)_context.getApplicationContext();
-		_namingService.get_imux().sendEvent(event);
+		_namingService.get_imux().publicEvent(event);
 		//Toast.makeText(_context, "Value: "+event.values[0], Toast.LENGTH_SHORT).show();
 		
 	}
 
 	// Metodi getter e setter
 	/**
-	 * Gets the _sensor rate.
+	 * Gets the sensor rate.
 	 * 
 	 * @return the _sensor rate
 	 */
@@ -132,7 +133,7 @@ public class AccelerometerInput implements IInput, SensorEventListener {
 	}
 
 	/**
-	 * Sets the _sensor rate.
+	 * Sets the sensor rate.
 	 * 
 	 * @param sensorRate
 	 *            the new _sensor rate

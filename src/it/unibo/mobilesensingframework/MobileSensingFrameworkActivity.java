@@ -8,13 +8,25 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MobileSensingFrameworkActivity.
+ */
 public class MobileSensingFrameworkActivity extends Activity {
 	
+	/** The STAR t_ input. */
 	private static String START_INPUT="it.unibo.mobilesensingframework.inputmanager.START_INPUT";
+	
+	/** The STO p_ input. */
 	private static String STOP_INPUT="it.unibo.mobilesensingframework.inputmanager.STOP_INPUT";
+	
+	/** The CATEGORY. */
 	private static String CATEGORY="it.unibo.mobilesensingframework.INPUT_MANAGER";
 	
+	/** The Constant INTENT_SENSOR_TYPE. */
 	private final static String INTENT_SENSOR_TYPE="SensorType";
+	
+	/** The Constant INTENT_SENSOR_PARAM. */
 	private final static String INTENT_SENSOR_PARAM="SensorParameters";
 	
 	/**

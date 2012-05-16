@@ -4,14 +4,21 @@ import android.util.Log;
 
 import com.lmax.disruptor.EventHandler;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MyEventHandler.
+ */
 public class MyEventHandler implements EventHandler<ValueEvent>{
 	
 	/** The Constant DEBUG. */
-	private final static boolean DEBUG = true;
+	private final static boolean DEBUG = true && it.unibo.mobilesensingframework.debug.Debug.DEBUG_SYSTEM;
 	
 	/** The Constant TAG. */
 	private final static String TAG = MyEventHandler.class.getCanonicalName();
 
+	/* (non-Javadoc)
+	 * @see com.lmax.disruptor.EventHandler#onEvent(java.lang.Object, long, boolean)
+	 */
 	public void onEvent(ValueEvent event, long sequence, boolean endOfBatch)
 			throws Exception {
 		// TODO Auto-generated method stub

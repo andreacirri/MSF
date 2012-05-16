@@ -24,7 +24,7 @@ public class InputFactory implements IInputFactory{
 	
 
 	/**
-	 * Instantiates a new input factory.
+	 * Instantiates a new InputFactory.
 	 * 
 	 * @param context
 	 *            the Android context

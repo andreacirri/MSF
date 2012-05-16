@@ -18,7 +18,7 @@
 //
 //	
 //	/** The Constant DEBUG. */
-//	private final static boolean DEBUG = true;
+//		private final static boolean DEBUG = true && it.unibo.mobilesensingframework.debug.Debug.DEBUG_SYSTEM;
 //	
 //	/** The Constant TAG. */
 //	private final static String TAG = InputManager.class.getCanonicalName();
