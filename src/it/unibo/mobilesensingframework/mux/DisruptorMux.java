@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 
 import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.EventHandler;
+import com.lmax.disruptor.MultiThreadedClaimStrategy;
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.Sequencer;
 import com.lmax.disruptor.SingleThreadedClaimStrategy;
@@ -15,6 +16,7 @@ import com.lmax.disruptor.SleepingWaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 
 import android.hardware.SensorEvent;
+import android.os.Bundle;
 import android.util.Log;
 
 // TODO: Auto-generated Javadoc
@@ -32,10 +34,10 @@ public class DisruptorMux implements IMux {
 	private final static String TAG = DisruptorMux.class.getCanonicalName();
 
 	/** The Constant NUM_EVENT_PROCESSORS. */
-	private static final int NUM_EVENT_PROCESSORS = 2;
+	private static final int NUM_EVENT_PROCESSORS = 4;
 
 	/** The Constant RING_SIZE. */
-	private static final int RING_SIZE = 16;
+	private static final int RING_SIZE = 1024;
 
 	/** The _disruptor. */
 	private Disruptor<BundleEvent> _disruptor = null;
@@ -86,18 +88,33 @@ public class DisruptorMux implements IMux {
 		long sequence = _ringBuffer.next();
 		BundleEvent _event = _ringBuffer.get(sequence);
 		
-		_event.getBundle().clear();
-		_event.getBundle().putInt(SensorEventToBundle.ACCURACY_INT, event.accuracy);
-		_event.getBundle().putLong(SensorEventToBundle.TIMESTAMP_LONG, event.timestamp);
-		_event.getBundle().putFloatArray(SensorEventToBundle.VALUES_FLOAT_ARRAY, event.values);
-		_event.getBundle().putFloat(SensorEventToBundle.SENSOR_MAXIMUM_RANGE_FLOAT, event.sensor.getMaximumRange());
-		_event.getBundle().putInt(SensorEventToBundle.SENSOR_MINDELEY_INT, event.sensor.getMinDelay());
-		_event.getBundle().putString(SensorEventToBundle.SENSOR_NAME_STRING, event.sensor.getName());
-		_event.getBundle().putFloat(SensorEventToBundle.SENSOR_POWER_FLOAT, event.sensor.getPower());
-		_event.getBundle().putFloat(SensorEventToBundle.SENSOR_RESOLUTION_FLOAT, event.sensor.getResolution());
-		_event.getBundle().putInt(SensorEventToBundle.SENSOR_TYPE_INT, event.sensor.getType());
-		_event.getBundle().putString(SensorEventToBundle.SENSOR_VENDOR_STRING, event.sensor.getVendor());
-		_event.getBundle().putInt(SensorEventToBundle.SENSOR_VERSION_INT, event.sensor.getVersion());
+		Bundle bundle=_event.getBundle();
+		
+		bundle.clear();
+		bundle.putInt(SensorEventToBundle.ACCURACY_INT, event.accuracy);
+		bundle.putLong(SensorEventToBundle.TIMESTAMP_LONG, event.timestamp);
+		bundle.putFloatArray(SensorEventToBundle.VALUES_FLOAT_ARRAY, event.values);
+		bundle.putFloat(SensorEventToBundle.SENSOR_MAXIMUM_RANGE_FLOAT, event.sensor.getMaximumRange());
+		bundle.putInt(SensorEventToBundle.SENSOR_MINDELEY_INT, event.sensor.getMinDelay());
+		bundle.putString(SensorEventToBundle.SENSOR_NAME_STRING, event.sensor.getName());
+		bundle.putFloat(SensorEventToBundle.SENSOR_POWER_FLOAT, event.sensor.getPower());
+		bundle.putFloat(SensorEventToBundle.SENSOR_RESOLUTION_FLOAT, event.sensor.getResolution());
+		bundle.putInt(SensorEventToBundle.SENSOR_TYPE_INT, event.sensor.getType());
+		bundle.putString(SensorEventToBundle.SENSOR_VENDOR_STRING, event.sensor.getVendor());
+		bundle.putInt(SensorEventToBundle.SENSOR_VERSION_INT, event.sensor.getVersion());
+		
+//		_event.getBundle().clear();
+//		_event.getBundle().putInt(SensorEventToBundle.ACCURACY_INT, event.accuracy);
+//		_event.getBundle().putLong(SensorEventToBundle.TIMESTAMP_LONG, event.timestamp);
+//		_event.getBundle().putFloatArray(SensorEventToBundle.VALUES_FLOAT_ARRAY, event.values);
+//		_event.getBundle().putFloat(SensorEventToBundle.SENSOR_MAXIMUM_RANGE_FLOAT, event.sensor.getMaximumRange());
+//		_event.getBundle().putInt(SensorEventToBundle.SENSOR_MINDELEY_INT, event.sensor.getMinDelay());
+//		_event.getBundle().putString(SensorEventToBundle.SENSOR_NAME_STRING, event.sensor.getName());
+//		_event.getBundle().putFloat(SensorEventToBundle.SENSOR_POWER_FLOAT, event.sensor.getPower());
+//		_event.getBundle().putFloat(SensorEventToBundle.SENSOR_RESOLUTION_FLOAT, event.sensor.getResolution());
+//		_event.getBundle().putInt(SensorEventToBundle.SENSOR_TYPE_INT, event.sensor.getType());
+//		_event.getBundle().putString(SensorEventToBundle.SENSOR_VENDOR_STRING, event.sensor.getVendor());
+//		_event.getBundle().putInt(SensorEventToBundle.SENSOR_VERSION_INT, event.sensor.getVersion());
 
 		_ringBuffer.publish(sequence);
 

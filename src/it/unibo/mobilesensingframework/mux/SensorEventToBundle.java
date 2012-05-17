@@ -9,12 +9,12 @@ public class SensorEventToBundle {
 	
 	
 	public final static String SENSOR_MAXIMUM_RANGE_FLOAT = "MaxRange";
-	public final static String SENSOR_MINDELEY_INT = "MaxRange";
+	public final static String SENSOR_MINDELEY_INT = "MinDelay";
 	public final static String SENSOR_NAME_STRING = "Name";
 	public final static String SENSOR_POWER_FLOAT = "Power";
 	public final static String SENSOR_RESOLUTION_FLOAT = "Resolution";
 	public final static String SENSOR_TYPE_INT = "Type";
-	public final static String SENSOR_VENDOR_STRING = "MaxRange";
-	public final static String SENSOR_VERSION_INT = "MaxRange";
+	public final static String SENSOR_VENDOR_STRING = "Vendors";
+	public final static String SENSOR_VERSION_INT = "Version";
 	
 }

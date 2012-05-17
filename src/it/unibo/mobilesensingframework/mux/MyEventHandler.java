@@ -1,7 +1,5 @@
 package it.unibo.mobilesensingframework.mux;
 
-import android.util.Log;
-
 import com.lmax.disruptor.EventHandler;
 
 // TODO: Auto-generated Javadoc

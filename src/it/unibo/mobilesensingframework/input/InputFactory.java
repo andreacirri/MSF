@@ -48,11 +48,11 @@ public class InputFactory implements IInputFactory{
 			
 			switch(type){
 			case Sensor.TYPE_ACCELEROMETER : 
-				_inputs.put(Sensor.TYPE_ACCELEROMETER, new AccelerometerInput(_context, android.hardware.SensorManager.SENSOR_DELAY_FASTEST));
+				_inputs.put(Sensor.TYPE_ACCELEROMETER, new AccelerometerInput(_context, android.hardware.SensorManager.SENSOR_DELAY_GAME));
 				break;	
 				
 			case Sensor.TYPE_MAGNETIC_FIELD : 
-				_inputs.put(Sensor.TYPE_MAGNETIC_FIELD, new MagneticFieldInput(_context, android.hardware.SensorManager.SENSOR_DELAY_FASTEST));
+				_inputs.put(Sensor.TYPE_MAGNETIC_FIELD, new MagneticFieldInput(_context, android.hardware.SensorManager.SENSOR_DELAY_GAME));
 				break;
 			}
 			
