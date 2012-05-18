@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import it.unibo.mobilesensingframework.mux.BundleEventHandler;
+import it.unibo.mobilesensingframework.mux.BundlePerformanceHandler;
 import it.unibo.mobilesensingframework.mux.IMux;
 import it.unibo.mobilesensingframework.mux.DisruptorMux;
 import it.unibo.mobilesensingframework.mux.MyEventHandler;
@@ -37,7 +38,9 @@ public class NamingService extends Application{
 		_wakeLock = _pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "TAG");
 		_wakeLock.acquire();
 		_imux=new DisruptorMux();
-		_imux.registryHandler(new BundleEventHandler());
+		_imux.registryHandler(new BundlePerformanceHandler());
+		_imux.registryHandler(new BundlePerformanceHandler());
+		_imux.registryHandler(new BundlePerformanceHandler());
 	}
 	
 	/* (non-Javadoc)

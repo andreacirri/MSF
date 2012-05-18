@@ -3,6 +3,7 @@
  */
 package it.unibo.mobilesensingframework.mux;
 
+import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -40,29 +41,33 @@ public class DisruptorMux implements IMux {
 	private static final int RING_SIZE = 1024;
 
 	/** The _disruptor. */
-	private Disruptor<BundleEvent> _disruptor = null;
+	private Disruptor<BundlePerformance> _disruptor = null;
 
 	/** The _executor. */
 	private ExecutorService _executor = null;
 
 	/** The _ring buffer. */
-	private RingBuffer<BundleEvent> _ringBuffer = null;
+	private RingBuffer<BundlePerformance> _ringBuffer = null;
 
 	/** The _start. */
 	private long _start = 0;
-	
-	
+
+	private Vector<EventHandler<BundlePerformance>> _handlers = null;
+
+	private boolean _isStarted = false;
 
 	/**
 	 * Instantiates a new Mux.
 	 */
 	public DisruptorMux() {
 
-		_executor = Executors.newFixedThreadPool(NUM_EVENT_PROCESSORS);
+		_executor = Executors.newCachedThreadPool();//newFixedThreadPool(NUM_EVENT_PROCESSORS);
 
-		_disruptor = new Disruptor<BundleEvent>(BundleEvent.EVENT_FACTORY,
+		_disruptor = new Disruptor<BundlePerformance>(BundlePerformance.EVENT_FACTORY,
 				_executor, new SingleThreadedClaimStrategy(RING_SIZE),
 				new BlockingWaitStrategy());
+
+		_handlers = new Vector<EventHandler<BundlePerformance>>();
 
 	}
 
@@ -70,8 +75,9 @@ public class DisruptorMux implements IMux {
 	 * Start.
 	 */
 	public void start() {
-
+		_ringBuffer=null;
 		_ringBuffer = _disruptor.start();
+		_isStarted = true;
 		_start = System.currentTimeMillis();
 		if (DEBUG)
 			Log.i(TAG, "Buffer avviato at " + _start);
@@ -86,35 +92,70 @@ public class DisruptorMux implements IMux {
 	public void publicSensorEvent(SensorEvent event) {
 
 		long sequence = _ringBuffer.next();
-		BundleEvent _event = _ringBuffer.get(sequence);
+		BundlePerformance b=_ringBuffer.get(sequence);
 		
-		Bundle bundle=_event.getBundle();
 		
-		bundle.clear();
-		bundle.putInt(SensorEventToBundle.ACCURACY_INT, event.accuracy);
-		bundle.putLong(SensorEventToBundle.TIMESTAMP_LONG, event.timestamp);
-		bundle.putFloatArray(SensorEventToBundle.VALUES_FLOAT_ARRAY, event.values);
-		bundle.putFloat(SensorEventToBundle.SENSOR_MAXIMUM_RANGE_FLOAT, event.sensor.getMaximumRange());
-		bundle.putInt(SensorEventToBundle.SENSOR_MINDELEY_INT, event.sensor.getMinDelay());
-		bundle.putString(SensorEventToBundle.SENSOR_NAME_STRING, event.sensor.getName());
-		bundle.putFloat(SensorEventToBundle.SENSOR_POWER_FLOAT, event.sensor.getPower());
-		bundle.putFloat(SensorEventToBundle.SENSOR_RESOLUTION_FLOAT, event.sensor.getResolution());
-		bundle.putInt(SensorEventToBundle.SENSOR_TYPE_INT, event.sensor.getType());
-		bundle.putString(SensorEventToBundle.SENSOR_VENDOR_STRING, event.sensor.getVendor());
-		bundle.putInt(SensorEventToBundle.SENSOR_VERSION_INT, event.sensor.getVersion());
+		b._accuracy=event.accuracy;
+		b._mindeley=event.sensor.getMinDelay();
+		b._name=event.sensor.getName();
+		b._power=event.sensor.getPower();
+		b._range=event.sensor.getMaximumRange();
+		b._timestamp=event.timestamp;
+		b._resolution=event.sensor.getResolution();
+		b._type=event.sensor.getType();
+		b._values=event.values;
+		b._vendor=event.sensor.getVendor();
+		b._version=event.sensor.getVersion();
 		
-//		_event.getBundle().clear();
-//		_event.getBundle().putInt(SensorEventToBundle.ACCURACY_INT, event.accuracy);
-//		_event.getBundle().putLong(SensorEventToBundle.TIMESTAMP_LONG, event.timestamp);
-//		_event.getBundle().putFloatArray(SensorEventToBundle.VALUES_FLOAT_ARRAY, event.values);
-//		_event.getBundle().putFloat(SensorEventToBundle.SENSOR_MAXIMUM_RANGE_FLOAT, event.sensor.getMaximumRange());
-//		_event.getBundle().putInt(SensorEventToBundle.SENSOR_MINDELEY_INT, event.sensor.getMinDelay());
-//		_event.getBundle().putString(SensorEventToBundle.SENSOR_NAME_STRING, event.sensor.getName());
-//		_event.getBundle().putFloat(SensorEventToBundle.SENSOR_POWER_FLOAT, event.sensor.getPower());
-//		_event.getBundle().putFloat(SensorEventToBundle.SENSOR_RESOLUTION_FLOAT, event.sensor.getResolution());
-//		_event.getBundle().putInt(SensorEventToBundle.SENSOR_TYPE_INT, event.sensor.getType());
-//		_event.getBundle().putString(SensorEventToBundle.SENSOR_VENDOR_STRING, event.sensor.getVendor());
-//		_event.getBundle().putInt(SensorEventToBundle.SENSOR_VERSION_INT, event.sensor.getVersion());
+//		BundleEvent _event = _ringBuffer.get(sequence);
+//
+//		Bundle bundle = _event.getBundle();
+//
+//		bundle.clear();
+//		bundle.putInt(SensorEventToBundle.ACCURACY_INT, event.accuracy);
+//		bundle.putLong(SensorEventToBundle.TIMESTAMP_LONG, event.timestamp);
+//		bundle.putFloatArray(SensorEventToBundle.VALUES_FLOAT_ARRAY,
+//				event.values);
+//		bundle.putFloat(SensorEventToBundle.SENSOR_MAXIMUM_RANGE_FLOAT,
+//				event.sensor.getMaximumRange());
+//		bundle.putInt(SensorEventToBundle.SENSOR_MINDELEY_INT,
+//				event.sensor.getMinDelay());
+//		bundle.putString(SensorEventToBundle.SENSOR_NAME_STRING,
+//				event.sensor.getName());
+//		bundle.putFloat(SensorEventToBundle.SENSOR_POWER_FLOAT,
+//				event.sensor.getPower());
+//		bundle.putFloat(SensorEventToBundle.SENSOR_RESOLUTION_FLOAT,
+//				event.sensor.getResolution());
+//		bundle.putInt(SensorEventToBundle.SENSOR_TYPE_INT,
+//				event.sensor.getType());
+//		bundle.putString(SensorEventToBundle.SENSOR_VENDOR_STRING,
+//				event.sensor.getVendor());
+//		bundle.putInt(SensorEventToBundle.SENSOR_VERSION_INT,
+//				event.sensor.getVersion());
+
+		// _event.getBundle().clear();
+		// _event.getBundle().putInt(SensorEventToBundle.ACCURACY_INT,
+		// event.accuracy);
+		// _event.getBundle().putLong(SensorEventToBundle.TIMESTAMP_LONG,
+		// event.timestamp);
+		// _event.getBundle().putFloatArray(SensorEventToBundle.VALUES_FLOAT_ARRAY,
+		// event.values);
+		// _event.getBundle().putFloat(SensorEventToBundle.SENSOR_MAXIMUM_RANGE_FLOAT,
+		// event.sensor.getMaximumRange());
+		// _event.getBundle().putInt(SensorEventToBundle.SENSOR_MINDELEY_INT,
+		// event.sensor.getMinDelay());
+		// _event.getBundle().putString(SensorEventToBundle.SENSOR_NAME_STRING,
+		// event.sensor.getName());
+		// _event.getBundle().putFloat(SensorEventToBundle.SENSOR_POWER_FLOAT,
+		// event.sensor.getPower());
+		// _event.getBundle().putFloat(SensorEventToBundle.SENSOR_RESOLUTION_FLOAT,
+		// event.sensor.getResolution());
+		// _event.getBundle().putInt(SensorEventToBundle.SENSOR_TYPE_INT,
+		// event.sensor.getType());
+		// _event.getBundle().putString(SensorEventToBundle.SENSOR_VENDOR_STRING,
+		// event.sensor.getVendor());
+		// _event.getBundle().putInt(SensorEventToBundle.SENSOR_VERSION_INT,
+		// event.sensor.getVersion());
 
 		_ringBuffer.publish(sequence);
 
@@ -127,12 +168,34 @@ public class DisruptorMux implements IMux {
 	 * it.unibo.mobilesensingframework.mux.IMux#registryHandler(com.lmax.disruptor
 	 * .EventHandler)
 	 */
-	public void registryHandler(EventHandler<BundleEvent> eventHandler) {
-		// TODO Auto-generated method stub
-		_disruptor.handleEventsWith(eventHandler);
+//	public void registryHandler(EventHandler<BundleEvent> eventHandler) {
+//		// TODO Auto-generated method stub
+//		_handlers.add(eventHandler);
+//		_disruptor.handleEventsWith(eventHandler);
+//		if (DEBUG)
+//			Log.i(TAG, "Aggiunto handler");
+//		start();
+//	}
+
+	public void registryHandler(EventHandler<BundlePerformance> eventHandler) {
+
+		_handlers.add(eventHandler);
+		if (!_isStarted) {
+			_disruptor.halt();
+			_disruptor.shutdown();
+			_disruptor = null;
+		}
+
+		_disruptor = new Disruptor<BundlePerformance>(BundlePerformance.EVENT_FACTORY,
+				_executor, new SingleThreadedClaimStrategy(RING_SIZE),
+				new BlockingWaitStrategy());
+
+		for (EventHandler<BundlePerformance> c : _handlers) {
+			_disruptor.handleEventsWith(c);
+		}
+		start();
 		if (DEBUG)
 			Log.i(TAG, "Aggiunto handler");
-		start();
 	}
 
 }

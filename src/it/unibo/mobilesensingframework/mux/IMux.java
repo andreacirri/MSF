@@ -29,6 +29,6 @@ public interface IMux {
 	 * @param eventHandler
 	 *            the event handler
 	 */
-	void registryHandler(EventHandler<BundleEvent> eventHandler);
+	void registryHandler(EventHandler<BundlePerformance> eventHandler);
 	
 }
