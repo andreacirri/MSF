@@ -3,7 +3,6 @@ package it.unibo.mobilesensingframework;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-import it.unibo.mobilesensingframework.input.IInputFactory;
 import android.app.Activity;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -13,9 +12,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class MobileSensingFrameworkActivity.
+ * 
+ * @author "Andrea Cirri"
  */
 public class MobileSensingFrameworkActivity extends Activity {
 	
@@ -92,6 +92,11 @@ public class MobileSensingFrameworkActivity extends Activity {
 	}
 	
 	
+	/**
+	 * Read usage.
+	 * 
+	 * @return the float
+	 */
 	private float readUsage() {
 	    try {
 	        RandomAccessFile reader = new RandomAccessFile("/proc/stat", "r");

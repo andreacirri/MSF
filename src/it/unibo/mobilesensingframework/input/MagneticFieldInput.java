@@ -1,6 +1,7 @@
 package it.unibo.mobilesensingframework.input;
 
 
+import it.unibo.mobilesensingframework.mux.IMux;
 import it.unibo.mobilesensingframework.naming.NamingService;
 import android.content.Context;
 import android.hardware.Sensor;
@@ -9,9 +10,10 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class AccelerometerInput.
+ * 
+ * @author "Andrea Cirri"
  */
 public class MagneticFieldInput implements IInput, SensorEventListener {
 
@@ -39,9 +41,8 @@ public class MagneticFieldInput implements IInput, SensorEventListener {
 	/** The _is started. */
 	private boolean _isStarted = false;
 	
-	/** The _naming service. */
-	private NamingService _namingService=null;
-
+	/** The _i mux. */
+	private IMux _iMux=null;
 	
 	/**
 	 * Return a new instance of AccelerometerInput.
@@ -114,8 +115,8 @@ public class MagneticFieldInput implements IInput, SensorEventListener {
 	 * @see android.hardware.SensorEventListener#onSensorChanged(android.hardware.SensorEvent)
 	 */
 	public void onSensorChanged(SensorEvent event) {
-		if(_namingService==null)_namingService=(NamingService)_context.getApplicationContext();
-		_namingService.get_imux().publicSensorEvent(event);
+		if(_iMux==null)_iMux=((NamingService)_context.getApplicationContext()).get_imux();
+		_iMux.publicSensorEvent(event);
 		
 	}
 

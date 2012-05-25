@@ -6,9 +6,10 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class InputManager.
+ * 
+ * @author "Andrea Cirri"
  */
 public class InputManager extends Service {
 

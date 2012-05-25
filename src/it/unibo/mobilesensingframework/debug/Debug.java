@@ -4,8 +4,9 @@
 package it.unibo.mobilesensingframework.debug;
 
 /**
+ * The Class Debug.
+ * 
  * @author "Andrea Cirri"
- *
  */
 public final class Debug {
 

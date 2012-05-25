@@ -2,9 +2,10 @@ package it.unibo.mobilesensingframework.input;
 
 import android.os.Bundle;
 
-// TODO: Auto-generated Javadoc
 /**
  * A factory for creating IInput objects.
+ * 
+ * @author "Andrea Cirri"
  */
 public interface IInputFactory {
 

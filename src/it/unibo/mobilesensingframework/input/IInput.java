@@ -1,11 +1,12 @@
 package it.unibo.mobilesensingframework.input;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface IInput.
  * 
  * Interface that realizes an input component.
+ * 
+ * @author "Andrea Cirri"
  */
 public interface IInput {
 

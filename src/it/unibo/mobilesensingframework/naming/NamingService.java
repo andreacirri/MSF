@@ -4,11 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
-import it.unibo.mobilesensingframework.mux.BundleEventHandler;
-import it.unibo.mobilesensingframework.mux.BundlePerformanceHandler;
 import it.unibo.mobilesensingframework.mux.IMux;
-import it.unibo.mobilesensingframework.mux.DisruptorMux;
-import it.unibo.mobilesensingframework.mux.MyEventHandler;
+import it.unibo.mobilesensingframework.mux.disruptor.DisruptorBundlePerformanceHandler;
+import it.unibo.mobilesensingframework.mux.disruptor.DisruptorMux;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -16,6 +14,7 @@ import it.unibo.mobilesensingframework.mux.MyEventHandler;
  */
 public class NamingService extends Application{
 	
+	/** The Constant DEBUG. */
 	private final static boolean DEBUG = true && it.unibo.mobilesensingframework.debug.Debug.DEBUG_SYSTEM;
 
 	
@@ -38,9 +37,9 @@ public class NamingService extends Application{
 		_wakeLock = _pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "TAG");
 		_wakeLock.acquire();
 		_imux=new DisruptorMux();
-		_imux.registryHandler(new BundlePerformanceHandler());
-		_imux.registryHandler(new BundlePerformanceHandler());
-		_imux.registryHandler(new BundlePerformanceHandler());
+		_imux.registryHandler(new DisruptorBundlePerformanceHandler());
+		_imux.registryHandler(new DisruptorBundlePerformanceHandler());
+		_imux.registryHandler(new DisruptorBundlePerformanceHandler());
 	}
 	
 	/* (non-Javadoc)

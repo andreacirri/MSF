@@ -1,15 +1,16 @@
-package it.unibo.mobilesensingframework.mux;
+package it.unibo.mobilesensingframework.mux.disruptor;
 
 import android.hardware.SensorEvent;
 
 import com.lmax.disruptor.EventFactory;
 
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class ValueEvent.
+ * The Class DisruptorValueEvent.
+ * 
+ * @author "Andrea Cirri"
  */
-public final class ValueEvent {
+public final class DisruptorValueEvent {
 	
 	/** The _value. */
 	private SensorEvent _value=null;
@@ -17,7 +18,7 @@ public final class ValueEvent {
 	/**
 	 * Instantiates a new value event.
 	 */
-	public ValueEvent(){
+	public DisruptorValueEvent(){
 	}
 
 	/**
@@ -40,9 +41,9 @@ public final class ValueEvent {
 	}
 
 	/** The Constant EVENT_FACTORY. */
-	public final static EventFactory<ValueEvent> EVENT_FACTORY = new EventFactory<ValueEvent>() {
-		public ValueEvent newInstance() {
-			return new ValueEvent();
+	public final static EventFactory<DisruptorValueEvent> EVENT_FACTORY = new EventFactory<DisruptorValueEvent>() {
+		public DisruptorValueEvent newInstance() {
+			return new DisruptorValueEvent();
 		}
 	};
 }

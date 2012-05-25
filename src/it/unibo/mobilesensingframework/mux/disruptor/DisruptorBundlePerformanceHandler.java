@@ -1,20 +1,28 @@
-package it.unibo.mobilesensingframework.mux;
+package it.unibo.mobilesensingframework.mux.disruptor;
 
 import android.util.Log;
 
 import com.lmax.disruptor.EventHandler;
 
-public class BundlePerformanceHandler implements EventHandler<BundlePerformance>{
+/**
+ * The Class DisruptorBundlePerformanceHandler.
+ * 
+ * @author "Andrea Cirri"
+ */
+public class DisruptorBundlePerformanceHandler implements EventHandler<DisruptorBundlePerformance>{
 	
 
 	/** The Constant DEBUG. */
 	private final static boolean DEBUG = true && it.unibo.mobilesensingframework.debug.Debug.DEBUG_SYSTEM;
 
 	/** The Constant TAG. */
-	private final static String TAG = BundlePerformanceHandler.class
+	private final static String TAG = DisruptorBundlePerformanceHandler.class
 			.getCanonicalName();
 
-	public void onEvent(BundlePerformance event, long sequence,
+	/* (non-Javadoc)
+	 * @see com.lmax.disruptor.EventHandler#onEvent(java.lang.Object, long, boolean)
+	 */
+	public void onEvent(DisruptorBundlePerformance event, long sequence,
 			boolean endOfBatch) throws Exception {
 		// TODO Auto-generated method stub
 		if (DEBUG)

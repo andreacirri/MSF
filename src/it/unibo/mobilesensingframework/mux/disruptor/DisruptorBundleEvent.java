@@ -1,15 +1,16 @@
-package it.unibo.mobilesensingframework.mux;
+package it.unibo.mobilesensingframework.mux.disruptor;
 
 import android.os.Bundle;
 
 import com.lmax.disruptor.EventFactory;
 
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class ValueEvent.
+ * The Class DisruptorValueEvent.
+ * 
+ * @author "Andrea Cirri"
  */
-public final class BundleEvent {
+public final class DisruptorBundleEvent {
 	
 	/** The _value. */
 	private Bundle _value=null;
@@ -17,7 +18,7 @@ public final class BundleEvent {
 	/**
 	 * Instantiates a new value event.
 	 */
-	public BundleEvent(){
+	public DisruptorBundleEvent(){
 		_value=new Bundle();
 	}
 
@@ -33,17 +34,17 @@ public final class BundleEvent {
 	/**
 	 * Sets the value.
 	 * 
-	 * @param sensorEvent
-	 *            the new value
+	 * @param value
+	 *            the new bundle
 	 */
 	public void setBundle(Bundle value) {
 		_value = value;
 	}
 
 	/** The Constant EVENT_FACTORY. */
-	public final static EventFactory<BundleEvent> EVENT_FACTORY = new EventFactory<BundleEvent>() {
-		public BundleEvent newInstance() {
-			return new BundleEvent();
+	public final static EventFactory<DisruptorBundleEvent> EVENT_FACTORY = new EventFactory<DisruptorBundleEvent>() {
+		public DisruptorBundleEvent newInstance() {
+			return new DisruptorBundleEvent();
 		}
 	};
 }

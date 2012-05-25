@@ -3,6 +3,8 @@
  */
 package it.unibo.mobilesensingframework.mux;
 
+import it.unibo.mobilesensingframework.mux.disruptor.DisruptorBundlePerformance;
+
 import com.lmax.disruptor.EventHandler;
 
 import android.hardware.SensorEvent;
@@ -29,6 +31,6 @@ public interface IMux {
 	 * @param eventHandler
 	 *            the event handler
 	 */
-	void registryHandler(EventHandler<BundlePerformance> eventHandler);
+	void registryHandler(EventHandler<DisruptorBundlePerformance> eventHandler);
 	
 }

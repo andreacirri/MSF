@@ -1,7 +1,9 @@
 /**
  * 
  */
-package it.unibo.mobilesensingframework.mux;
+package it.unibo.mobilesensingframework.mux.disruptor;
+
+import it.unibo.mobilesensingframework.mux.IMux;
 
 import java.util.Vector;
 import java.util.concurrent.ExecutorService;
@@ -9,18 +11,13 @@ import java.util.concurrent.Executors;
 
 import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.EventHandler;
-import com.lmax.disruptor.MultiThreadedClaimStrategy;
 import com.lmax.disruptor.RingBuffer;
-import com.lmax.disruptor.Sequencer;
 import com.lmax.disruptor.SingleThreadedClaimStrategy;
-import com.lmax.disruptor.SleepingWaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 
 import android.hardware.SensorEvent;
-import android.os.Bundle;
 import android.util.Log;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Mux. This version of IMux uses Disruptor bus.
  * 
@@ -41,19 +38,21 @@ public class DisruptorMux implements IMux {
 	private static final int RING_SIZE = 1024;
 
 	/** The _disruptor. */
-	private Disruptor<BundlePerformance> _disruptor = null;
+	private Disruptor<DisruptorBundlePerformance> _disruptor = null;
 
 	/** The _executor. */
 	private ExecutorService _executor = null;
 
 	/** The _ring buffer. */
-	private RingBuffer<BundlePerformance> _ringBuffer = null;
+	private RingBuffer<DisruptorBundlePerformance> _ringBuffer = null;
 
 	/** The _start. */
 	private long _start = 0;
 
-	private Vector<EventHandler<BundlePerformance>> _handlers = null;
+	/** The _handlers. */
+	private Vector<EventHandler<DisruptorBundlePerformance>> _handlers = null;
 
+	/** The _is started. */
 	private boolean _isStarted = false;
 
 	/**
@@ -63,11 +62,11 @@ public class DisruptorMux implements IMux {
 
 		_executor = Executors.newCachedThreadPool();//newFixedThreadPool(NUM_EVENT_PROCESSORS);
 
-		_disruptor = new Disruptor<BundlePerformance>(BundlePerformance.EVENT_FACTORY,
+		_disruptor = new Disruptor<DisruptorBundlePerformance>(DisruptorBundlePerformance.EVENT_FACTORY,
 				_executor, new SingleThreadedClaimStrategy(RING_SIZE),
 				new BlockingWaitStrategy());
 
-		_handlers = new Vector<EventHandler<BundlePerformance>>();
+		_handlers = new Vector<EventHandler<DisruptorBundlePerformance>>();
 
 	}
 
@@ -92,7 +91,7 @@ public class DisruptorMux implements IMux {
 	public void publicSensorEvent(SensorEvent event) {
 
 		long sequence = _ringBuffer.next();
-		BundlePerformance b=_ringBuffer.get(sequence);
+		DisruptorBundlePerformance b=_ringBuffer.get(sequence);
 		
 		
 		b._accuracy=event.accuracy;
@@ -177,7 +176,7 @@ public class DisruptorMux implements IMux {
 //		start();
 //	}
 
-	public void registryHandler(EventHandler<BundlePerformance> eventHandler) {
+	public void registryHandler(EventHandler<DisruptorBundlePerformance> eventHandler) {
 
 		_handlers.add(eventHandler);
 		if (!_isStarted) {
@@ -186,11 +185,11 @@ public class DisruptorMux implements IMux {
 			_disruptor = null;
 		}
 
-		_disruptor = new Disruptor<BundlePerformance>(BundlePerformance.EVENT_FACTORY,
+		_disruptor = new Disruptor<DisruptorBundlePerformance>(DisruptorBundlePerformance.EVENT_FACTORY,
 				_executor, new SingleThreadedClaimStrategy(RING_SIZE),
 				new BlockingWaitStrategy());
 
-		for (EventHandler<BundlePerformance> c : _handlers) {
+		for (EventHandler<DisruptorBundlePerformance> c : _handlers) {
 			_disruptor.handleEventsWith(c);
 		}
 		start();
