@@ -1,5 +1,7 @@
 package it.unibo.mobilesensingframework;
 
+import it.unibo.mobilesensingframework.pipelinemanager.PipelineManager;
+
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -58,6 +60,7 @@ public class MobileSensingFrameworkActivity extends Activity {
 				startService(i);
 				i.putExtra(INTENT_SENSOR_TYPE, Sensor.TYPE_ACCELEROMETER);
 				startService(i);
+				
 			}
 		});
 
@@ -88,7 +91,6 @@ public class MobileSensingFrameworkActivity extends Activity {
 				textStats.setText("Cpu Usage: "+readUsage());
 			}
 		});
-
 	}
 	
 	

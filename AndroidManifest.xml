@@ -26,6 +26,7 @@
                 <category android:name="it.unibo.mobilesensingframework.INPUT_MANAGER" />
             </intent-filter>
         </service>
+        <service android:name=".pipelinemanager.PipelineManager"></service>
     </application>
 
 </manifest>

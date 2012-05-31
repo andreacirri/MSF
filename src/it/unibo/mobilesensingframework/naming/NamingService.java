@@ -2,11 +2,14 @@ package it.unibo.mobilesensingframework.naming;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.util.Log;
 import it.unibo.mobilesensingframework.mux.IMux;
 import it.unibo.mobilesensingframework.mux.disruptor.DisruptorBundlePerformanceHandler;
 import it.unibo.mobilesensingframework.mux.disruptor.DisruptorMux;
+import it.unibo.mobilesensingframework.pipelinemanager.PipelineManager;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -40,6 +43,9 @@ public class NamingService extends Application{
 		_imux.registryHandler(new DisruptorBundlePerformanceHandler());
 		_imux.registryHandler(new DisruptorBundlePerformanceHandler());
 		_imux.registryHandler(new DisruptorBundlePerformanceHandler());
+		
+		startService(new Intent(this, PipelineManager.class));
+		
 	}
 	
 	/* (non-Javadoc)
@@ -49,6 +55,7 @@ public class NamingService extends Application{
 	public void onTerminate() {
 		// TODO Auto-generated method stub
 		_wakeLock.release();
+		stopService(new Intent(this, PipelineManager.class));
 		super.onTerminate();
 		
 	}

@@ -11,5 +11,5 @@ package it.unibo.mobilesensingframework.debug;
 public final class Debug {
 
 	/** The Constant DEBUG_SYSTEM. Enable/Disable application log.*/
-	public final static boolean DEBUG_SYSTEM=false;
+	public final static boolean DEBUG_SYSTEM=true;
 }
